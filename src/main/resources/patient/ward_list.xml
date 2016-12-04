@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service name="ward_list">
+    <property name="ward" org_name="ward" dataType="s"/>
+    <property name="bed_no" org_name="bedNo" dataType="i"/>
+</service>

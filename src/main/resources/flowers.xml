@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowers>
+
+    <varieties type="xml"/>
+
+    <petals id="patient_petals" class="java.util.Map">
+        <list>
+            <value>/patient/patient.xml</value>
+            <value>/patient/in_hospital_list.xml</value>
+            <value>/patient/visit_list.xml</value>
+            <value>/patient/ward_list.xml</value>
+        </list>
+        <model>
+            <root name="patient">
+                <element name="visit_list"/>
+                <element name="in_hospital_list">
+                    <element name="ward_list"/>
+                </element>
+            </root>
+        </model>
+    </petals>
+
+</flowers>

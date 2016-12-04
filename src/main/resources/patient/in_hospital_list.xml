@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service name="in_hospital_list">
+    <property name="visit_id" org_name="visitId" dataType="i" nullable="Y"/>
+    <property name="date" org_name="date" dataType="d" dateType="yyyy-MM-dd HH:mm:ss" nullable="Y"/>
+    <property name="ward_list" org_name="wardList" extends="ward_list"/>
+</service>
