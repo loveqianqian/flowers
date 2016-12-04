@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class ScannerMemory<T> implements Serializable {
 
-    public static Object key = new Object();
+    public static final Object key = new Object();
 
     private ConcurrentMap<String, T> petalsMemory = new ConcurrentHashMap<String, T>();
 
