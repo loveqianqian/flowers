@@ -11,10 +11,10 @@
             <value>/patient/ward_list.xml</value>
         </list>
         <model>
-            <root name="patient">
-                <element name="visit_list"/>
-                <element name="in_hospital_list">
-                    <element name="ward_list"/>
+            <root name="patient" xml_name="patient">
+                <element name="visitList" xml_name="visit_list"/>
+                <element name="inHospitalList" xml_name="in_hospital_list">
+                    <element name="wardList" xml_name="ward_list"/>
                 </element>
             </root>
         </model>

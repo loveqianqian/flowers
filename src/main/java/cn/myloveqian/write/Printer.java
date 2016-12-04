@@ -8,7 +8,7 @@ import java.util.Map;
  * @author zhiwei
  * @create 2016-12-03 20:38.
  */
-public interface PrinterMachine<T> {
+public interface Printer<T> {
 
-    String print(T type,Map<String,Object> message);
+    String print(T type, Map<String, Object> message);
 }

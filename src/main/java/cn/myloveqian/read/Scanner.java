@@ -9,7 +9,7 @@ import cn.myloveqian.Message;
  * @author zhiwei
  * @create 2016-12-03 20:21.
  */
-public interface ScannerMachine<T> extends Machine {
+public interface Scanner<T> extends Machine {
 
-    Message<T> read(String paper, String material);
+    Message<T> read();
 }

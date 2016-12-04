@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<service name="visit_list">
-    <property name="visit_id" org_name="visitId" dataType="i" nullable="Y"/>
-    <property name="date" org_name="date" dataType="date" dateType="yyyy-MM-dd HH:mm:ss" nullable="Y"/>
-</service>
+<part id="visit_list">
+    <property name="visit_id" org_name="visitId" dataType="i"/>
+    <property name="date" org_name="date" dataType="date" dateType="yyyy-MM-dd HH:mm:ss"/>
+</part>

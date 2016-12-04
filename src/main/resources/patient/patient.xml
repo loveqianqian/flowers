@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<service name="patient">
+<part id="patient">
     <property name="patient_id" org_name="patientId" dataType="s"/>
     <property name="visit_id" org_name="visitId" dataType="s"/>
     <property name="visit_list" org_name="visitList" extends="visit_list"/>
     <property name="in_hospital_list" org_name="inHospitalList" extends="in_hospital_list"/>
-</service>
+</part>

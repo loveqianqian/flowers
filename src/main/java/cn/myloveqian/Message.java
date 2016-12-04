@@ -18,19 +18,13 @@ public class Message<T> {
      */
     private T message;
 
-    /**
-     * whatever the type of message is ,you need to tell machine to know
-     */
-    private String messageType;
-
     public Message() {
 
     }
 
-    public Message(String sign, T message, String messageType) {
+    public Message(String sign, T message) {
         this.sign = sign;
         this.message = message;
-        this.messageType = messageType;
     }
 
     public String getSign() {
@@ -47,14 +41,6 @@ public class Message<T> {
 
     public void setMessage(T message) {
         this.message = message;
-    }
-
-    public String getMessageType() {
-        return messageType;
-    }
-
-    public void setMessageType(String messageType) {
-        this.messageType = messageType;
     }
 
 }
