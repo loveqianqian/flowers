@@ -8,5 +8,10 @@ package cn.myloveqian;
  */
 public interface Machine {
 
+    /**
+     * doJob method is common method .every machine have the ability to deal .
+     *
+     * @throws Exception
+     */
     void doJob() throws Exception;
 }

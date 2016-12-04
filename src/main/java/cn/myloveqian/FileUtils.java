@@ -11,11 +11,7 @@ import java.io.InputStream;
  */
 public class FileUtils {
 
-    private static String xmlName;
-
-    public static void setXmlName(String xmlName) {
-        FileUtils.xmlName = xmlName;
-    }
+    private static String xmlName="flowers.xml";
 
     private static String result;
 

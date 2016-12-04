@@ -25,18 +25,17 @@ public abstract class DefaultScannerSuit<T> implements Scanner {
     private static final String FLOWERS_PETALS_LIST_NAME = "petals";
     private static final String PETALS_ATTRIBUTE_ID = "id";
 
-    private String paper;
     private String material;
     /**
      * as a vase . you can put the petals in it;
      */
-    private Map<String, String> vase;
+    private Map<String, Element> vase;
 
-    public Map<String, String> getVase() {
+    public Map<String, Element> getVase() {
         return vase;
     }
 
-    public void setVase(Map<String, String> vase) {
+    public void setVase(Map<String, Element> vase) {
         this.vase = vase;
     }
 
@@ -48,30 +47,27 @@ public abstract class DefaultScannerSuit<T> implements Scanner {
         this.material = material;
     }
 
-    public String getPaper() {
-        return paper;
-    }
-
-    public void setPaper(String paper) {
-        this.paper = paper;
-    }
-
+    /**
+     * return type will be {@link Message} Message
+     */
     public abstract Message<T> read();
 
     public void doJob() throws Exception {
-        FileUtils.setXmlName(paper);
-        String result = FileUtils.getResult();
-        Document helper = DocumentHelper.parseText(result);
-        Element rootElement = helper.getRootElement();
-        Element scannerResult = rootElement.element(SCANNER_RESULT);
-        Attribute typeOfScannerResultAttribute = scannerResult.attribute(TYPE_OF_SCANNER_RESULT);
-        material = typeOfScannerResultAttribute.getName();
-        List elements = rootElement.elements(FLOWERS_PETALS_LIST_NAME);
-        Iterator iterator = elements.iterator();
-        while (iterator.hasNext()) {
-            Element element = (Element) iterator.next();
-            String petalsAttributeId = element.attribute(PETALS_ATTRIBUTE_ID).getName();
-            vase.put(petalsAttributeId, element.asXML());
+        if (vase == null) {
+            vase = new HashMap<String, Element>();
+            String result = FileUtils.getResult();
+            Document helper = DocumentHelper.parseText(result);
+            Element rootElement = helper.getRootElement();
+            Element scannerResult = rootElement.element(SCANNER_RESULT);
+            Attribute typeOfScannerResultAttribute = scannerResult.attribute(TYPE_OF_SCANNER_RESULT);
+            material = typeOfScannerResultAttribute.getText();
+            List elements = rootElement.elements(FLOWERS_PETALS_LIST_NAME);
+            Iterator iterator = elements.iterator();
+            while (iterator.hasNext()) {
+                Element element = (Element) iterator.next();
+                String petalsAttributeId = element.attribute(PETALS_ATTRIBUTE_ID).getText();
+                vase.put(petalsAttributeId, element);
+            }
         }
     }
 }

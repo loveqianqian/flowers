@@ -7,6 +7,7 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * cn.myloveqian.read
@@ -18,60 +19,56 @@ public class CheapScanner extends DefaultScannerSuit<Map<String, Object>> {
 
     private String flowersName;
 
-    private String flowersHomePlace;
-
     public enum flowersTpe {
         xml,
         json,
         sql
     }
 
-
-    public CheapScanner(String flowersName, String flowersHomePlace) {
+    public CheapScanner(String flowersName) {
         this.flowersName = flowersName;
-        this.flowersHomePlace = flowersHomePlace;
     }
 
     @Override
     public Message<Map<String, Object>> read() {
-        setPaper(flowersHomePlace);
         try {
             doJob();
         } catch (Exception e) {
             e.printStackTrace();
         }
         String material = getMaterial();
-        Map<String, String> vase = getVase();
-        String myFavourFlower = vase.get(flowersName);
+        Map<String, Element> vase = getVase();
+        Element myFavourFlower = vase.get(flowersName);
         Message<Map<String, Object>> machineLanguage = null;
-        if (material.equalsIgnoreCase(flowersTpe.xml.name())) {
-            machineLanguage = new Message<Map<String, Object>>();
-            machineLanguage.setSign(flowersName);
-            Map<String, Object> messageMachine = new HashMap<String, Object>();
-            Document helper;
-            try {
-                helper = DocumentHelper.parseText(myFavourFlower);
-                Element petals = helper.getRootElement();
-                String aClassName = petals.attribute("class").getName();
-                Element list = petals.element("list");
+        ScannerMemory<Message<Map<String, Object>>> memory = new ScannerMemory<Message<Map<String, Object>>>();
+        ConcurrentMap<String, Message<Map<String, Object>>> petalsMemory = memory.getPetalsMemory();
+        if (petalsMemory.containsKey(flowersName)) {
+            machineLanguage = petalsMemory.get(flowersName);
+        } else {
+            if (material.equalsIgnoreCase(flowersTpe.xml.name())) {
+                machineLanguage = new Message<Map<String, Object>>();
+                machineLanguage.setSign(flowersName);
+                Map<String, Object> messageMachine = new HashMap<String, Object>();
+                String aClassName = myFavourFlower.attribute("class").getText();
+                Element list = myFavourFlower.element("list");
                 List values = list.elements("value");
                 Iterator iterator = values.iterator();
                 List<String> listValue = new ArrayList<String>();
                 while (iterator.hasNext()) {
-                    listValue.add(String.valueOf(iterator.next()));
+                    Element next = (Element) iterator.next();
+                    String text = next.getText();
+                    listValue.add(text);
                 }
-                Element model = petals.element("model");
+                Element model = myFavourFlower.element("model");
                 messageMachine.put("class", aClassName);
                 messageMachine.put("list", listValue);
                 messageMachine.put("write", model.asXML());
-            } catch (DocumentException e) {
-                e.printStackTrace();
+                machineLanguage.setMessage(messageMachine);
+            } else if (material.equalsIgnoreCase(flowersTpe.json.name())) {
+
+            } else if (material.equalsIgnoreCase(flowersTpe.sql.name())) {
+
             }
-            machineLanguage.setMessage(messageMachine);
-        } else if (material.equalsIgnoreCase(flowersTpe.json.name())) {
-
-        } else if (material.equalsIgnoreCase(flowersTpe.sql.name())) {
-
         }
         return machineLanguage;
     }
